@@ -22,19 +22,19 @@ type FileTree struct {
 	expanded       bool
 }
 
-var cache = struct {
+var Cache = struct {
 	sync.RWMutex
 	m map[string]string
 }{m: make(map[string]string)}
 
 func getNerdFontIcon(filename string) string {
 	// Check if the result is already cached
-	cache.RLock()
-	if icon, ok := cache.m[filename]; ok {
-		cache.RUnlock()
+	Cache.RLock()
+	if icon, ok := Cache.m[filename]; ok {
+		Cache.RUnlock()
 		return icon
 	}
-	cache.RUnlock()
+	Cache.RUnlock()
 
 	// Run the `lsd` command to get the icon for the file
 	cmd := exec.Command("lsd", "--icon", "always", "--color", "always", filename)
@@ -49,12 +49,14 @@ func getNerdFontIcon(filename string) string {
 	iconLine := strings.Split(out.String(), "\n")[0]
 	icon := iconLine
 
-	// // Cache the result
-	cache.Lock()
-	cache.m[filename] = icon
-	cache.Unlock()
+	result := strings.Replace(icon, filename, "", -1) + filepath.Base(filename)
 
-	return strings.Replace(icon, filename, "", -1) + filepath.Base(filename)
+	// // Cache the result
+	Cache.Lock()
+	Cache.m[filename] = result
+	Cache.Unlock()
+
+	return result
 }
 
 func InitFileTree(p string) (*FileTree, error) {
