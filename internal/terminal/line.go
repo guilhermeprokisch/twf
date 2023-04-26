@@ -61,7 +61,7 @@ func (l *line) Append(s string, graphics *Graphics) Line {
 	if graphics != nil {
 		l.line.WriteString(graphics.ToEscapeCode())
 	}
-	l.appendText(s)
+	l.line.WriteString(s)
 	l.line.WriteString(resetGraphics)
 	l.line.WriteString(l.defaultGraphics.ToEscapeCode())
 	return l
