@@ -4,8 +4,12 @@ import (
 	"errors"
 	"fmt"
 	"os"
+  "bytes"
 	"path/filepath"
 	"sort"
+  "os/exec"
+  "sync"
+	"strings"
 )
 
 type FileTree struct {
@@ -17,6 +21,44 @@ type FileTree struct {
 	childrenByName map[string]*FileTree
 	expanded       bool
 }
+
+
+var cache = struct {
+	sync.RWMutex
+	m map[string]string
+}{m: make(map[string]string)}
+
+
+func getNerdFontIcon(filename string) string {
+	// Check if the result is already cached
+	cache.RLock()
+	if icon, ok := cache.m[filename]; ok {
+		cache.RUnlock()
+		return icon
+	}
+	cache.RUnlock()
+
+	// Run the `lsd` command to get the icon for the file
+	cmd := exec.Command("lsd", "--icon", "always", filename)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Run()
+	if err != nil {
+		return ""
+	}
+
+	// Parse the output of `lsd` to get the icon
+	iconLine := strings.Split(out.String(), "\n")[0]
+	icon := iconLine[0:3]
+
+	// Cache the result
+	cache.Lock()
+	cache.m[filename] = icon
+	cache.Unlock()
+
+	return icon
+}
+
 
 func InitFileTree(p string) (*FileTree, error) {
 	abs, err := filepath.Abs(p)
@@ -40,7 +82,13 @@ func InitFileTree(p string) (*FileTree, error) {
 }
 
 func (t *FileTree) Name() string {
-	return t.info.Name()
+  icon := getNerdFontIcon(t.AbsPath)
+  if !t.IsDir() {
+    return icon + " " + t.info.Name()
+	} else {
+	  return t.info.Name()
+  }
+
 }
 
 func (t *FileTree) IsDir() bool {

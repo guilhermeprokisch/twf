@@ -73,9 +73,9 @@ func (v *treeView) renderNode(
 
 	if node.IsDir() {
 		if node.Expanded() {
-			line.Append("▼ ", &graphics)
+			line.Append(" ", &graphics)
 		} else {
-			line.Append("▶ ", &graphics)
+			line.Append(" ", &graphics)
 		}
 	}
 	line.Append(node.Name(), &graphics)
