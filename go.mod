@@ -1,4 +1,4 @@
-module github.com/wvanlint/twf
+module github.com/guilhermeprokisch/twf
 
 go 1.13
 

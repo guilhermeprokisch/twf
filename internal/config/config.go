@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	term "github.com/wvanlint/twf/internal/terminal"
+	term "github.com/guilhermeprokisch/twf/internal/terminal"
 )
 
 type TwfConfig struct {

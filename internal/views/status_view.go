@@ -1,9 +1,9 @@
 package views
 
 import (
-	"github.com/wvanlint/twf/internal/config"
-	"github.com/wvanlint/twf/internal/state"
-	term "github.com/wvanlint/twf/internal/terminal"
+	"github.com/guilhermeprokisch/twf/internal/config"
+	"github.com/guilhermeprokisch/twf/internal/state"
+	term "github.com/guilhermeprokisch/twf/internal/terminal"
 )
 
 type statusView struct {

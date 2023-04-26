@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/wvanlint/twf/internal/filetree"
+	"github.com/guilhermeprokisch/twf/internal/filetree"
 )
 
 type State struct {

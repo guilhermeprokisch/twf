@@ -19,7 +19,7 @@ Installation
 ### Using [Homebrew](https://brew.sh/)
 
 ```sh
-brew install --HEAD wvanlint/twf/twf
+brew install --HEAD guilhermeprokisch/twf/twf
 ```
 
 ### Using Go
@@ -34,7 +34,7 @@ export PATH="$PATH:$HOME/bin:$GOPATH/bin"
 Install the Go binary.
 
 ```sh
-go get -u github.com/wvanlint/twf/cmd/twf
+go get -u github.com/guilhermeprokisch/twf/cmd/twf
 ```
 
 Integrations

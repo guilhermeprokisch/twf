@@ -4,10 +4,10 @@ import (
 	"math"
 	"strings"
 
-	"github.com/wvanlint/twf/internal/config"
-	"github.com/wvanlint/twf/internal/filetree"
-	"github.com/wvanlint/twf/internal/state"
-	term "github.com/wvanlint/twf/internal/terminal"
+	"github.com/guilhermeprokisch/twf/internal/config"
+	"github.com/guilhermeprokisch/twf/internal/filetree"
+	"github.com/guilhermeprokisch/twf/internal/state"
+	term "github.com/guilhermeprokisch/twf/internal/terminal"
 )
 
 type treeView struct {
